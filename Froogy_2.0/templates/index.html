@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#10231f">
+  <meta name="description" content="Froogy 2.0 — atravesse ruas, rios e complete sua grande travessia!">
+  <title>Froogy 2.0 — A Grande Travessia</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="page-noise" aria-hidden="true"></div>
+  <main class="app-shell">
+    <section id="menuScreen" class="screen menu-screen">
+      <header class="topline">
+        <div class="brand-mark"><span class="brand-frog">●</span><span>ARCADE<span class="brand-dot">.</span>CLUB</span></div>
+        <div class="top-pill"><span class="status-dot"></span> EDIÇÃO 2.0</div>
+      </header>
+
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-line"></span> UMA NOVA AVENTURA COMEÇA</p>
+          <h1>FROOGY<span class="title-version">2.0</span></h1>
+          <p class="hero-subtitle">A GRANDE <span>TRAVESSIA</span></p>
+          <p class="hero-description">Ruas movimentadas, rios traiçoeiros e um sapinho com uma missão: chegar em casa. Pule no ritmo certo e não deixe a aventura acabar!</p>
+
+          <div class="name-field">
+            <label for="playerName">SEU NOME</label>
+            <input id="playerName" type="text" maxlength="12" placeholder="JOGADOR" autocomplete="nickname">
+          </div>
+          <div class="mode-picker">
+            <label for="modeSelect">ESCOLHA O MODO</label>
+            <select id="modeSelect">
+              <option value="classic">Clássico — 3 vidas</option>
+              <option value="time">Contra o tempo — 120 segundos</option>
+              <option value="challenge">Desafio — velocidade máxima</option>
+            </select>
+          </div>
+          <button id="playBtn" class="primary-button"><span>JOGAR AGORA</span><b>▶</b></button>
+          <div class="menu-links">
+            <button class="text-button" id="helpBtn">COMO JOGAR</button>
+            <span>·</span>
+            <button class="text-button" id="recordsBtn">RECORDES</button>
+            <span>·</span>
+            <button class="text-button" id="achievementsBtn">CONQUISTAS</button>
+            <span>·</span>
+            <button class="text-button" id="settingsBtn">AJUSTES</button>
+          </div>
+        </div>
+
+        <div class="hero-art" aria-label="Ilustração pixel art de um sapo sobre uma folha">
+          <div class="art-sun"></div>
+          <div class="art-cloud cloud-one"></div>
+          <div class="art-cloud cloud-two"></div>
+          <div class="art-hill hill-back"></div>
+          <div class="art-hill hill-front"></div>
+          <div class="art-water"></div>
+          <div class="art-lily lily-one"></div>
+          <div class="art-lily lily-two"></div>
+          <div class="hero-frog">
+            <div class="frog-shadow"></div>
+            <div class="frog-leg leg-left"></div><div class="frog-leg leg-right"></div>
+            <div class="frog-body"><div class="frog-belly"></div><div class="frog-eye eye-left"><i></i></div><div class="frog-eye eye-right"><i></i></div><div class="frog-mouth"></div></div>
+          </div>
+          <div class="art-label label-top">★ LEVEL UP ★</div>
+          <div class="art-label label-bottom">HOP! HOP! HOP!</div>
+          <div class="pixel-spark spark-one">✦</div><div class="pixel-spark spark-two">✧</div>
+        </div>
+      </div>
+
+      <footer class="menu-footer"><span>FROOGY 2.0</span><span>FEITO PARA QUEM NÃO TEM MEDO DE PULAR.</span><span>INSERT COIN <b>▮</b></span></footer>
+    </section>
+
+    <section id="gameScreen" class="screen game-screen hidden">
+      <header class="game-header">
+        <button id="backToMenuBtn" class="icon-button" aria-label="Voltar ao menu" title="Voltar ao menu">⌂</button>
+        <div class="game-brand"><span class="mini-frog">●</span> FROOGY <small>2.0</small></div>
+        <div class="hud-items">
+          <div class="hud-item"><span class="hud-label">PONTOS</span><strong id="scoreValue">000000</strong></div>
+          <div class="hud-item"><span class="hud-label">MOEDAS</span><strong id="coinValue">0</strong></div>
+          <div class="hud-item"><span class="hud-label">FASE</span><strong id="levelValue">1</strong></div>
+          <div class="hud-item"><span class="hud-label">TEMPO</span><strong id="timeValue">40</strong></div>
+          <div class="hud-item lives-hud"><span class="hud-label">VIDAS</span><strong id="livesValue">♥ ♥ ♥</strong></div>
+        </div>
+        <button id="pauseBtn" class="icon-button pause-button" aria-label="Pausar jogo" title="Pausar">Ⅱ</button>
+      </header>
+
+      <div class="game-content">
+        <div class="game-side-info">
+          <div class="side-card"><span class="side-kicker">OBJETIVO</span><strong>ENCONTRE<br>UMA CASA!</strong><p>Preencha os cinco espaços para avançar de fase.</p><div class="home-progress" id="homeProgress"><i></i><i></i><i></i><i></i><i></i></div><small id="homeCount">0 / 5 CASAS</small></div>
+          <div class="side-card controls-card"><span class="side-kicker">CONTROLES</span><p><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> ou setas</p><p><kbd>P</kbd> pausar</p><small>O sapo dá um pulo por comando.</small></div>
+          <div class="theme-tag" id="themeTag">CIDADE • DIA</div>
+        </div>
+
+        <div class="board-wrap">
+          <div class="board-topline"><span><i class="live-dot"></i> AO VIVO</span><span id="modeLabel">MODO CLÁSSICO</span><span>● ● ●</span></div>
+          <div class="canvas-frame">
+            <canvas id="gameCanvas" width="700" height="600" aria-label="Jogo Froogy: atravesse a estrada e o rio para chegar às casas"></canvas>
+            <div id="toast" class="toast" aria-live="polite"></div>
+            <div id="pauseOverlay" class="game-overlay hidden">
+              <div class="overlay-panel"><p class="overlay-kicker">PAUSA NA TRAVESSIA</p><h2>RESPIRA, SAPINHO.</h2><p>O trânsito espera... por enquanto.</p><button id="resumeBtn" class="primary-button">CONTINUAR <b>▶</b></button><button id="pauseRestartBtn" class="secondary-button">RECOMEÇAR</button><button id="pauseMenuBtn" class="quiet-button">VOLTAR AO MENU</button></div>
+            </div>
+            <div id="endOverlay" class="game-overlay hidden">
+              <div class="overlay-panel"><p class="overlay-kicker" id="endKicker">FIM DE JOGO</p><h2 id="endTitle">BOA TENTATIVA!</h2><p id="endText">A próxima travessia será melhor.</p><div class="result-score"><span>PONTUAÇÃO FINAL</span><strong id="finalScore">0</strong></div><button id="againBtn" class="primary-button">JOGAR NOVAMENTE <b>▶</b></button><button id="endMenuBtn" class="quiet-button">VOLTAR AO MENU</button></div>
+            </div>
+          </div>
+          <div class="board-footer"><span>← → ↑ ↓ MOVA O SAPO</span><span>EVITE OS CARROS • PEGUE AS MOEDAS</span><span id="bestInline">RECORDE: 0</span></div>
+        </div>
+      </div>
+
+      <div class="mobile-controls" aria-label="Controles direcionais para celular">
+        <button data-dir="up" aria-label="Cima">▲</button>
+        <div><button data-dir="left" aria-label="Esquerda">◀</button><button data-dir="down" aria-label="Baixo">▼</button><button data-dir="right" aria-label="Direita">▶</button></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="modalBackdrop" class="modal-backdrop hidden" role="presentation">
+    <section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button id="modalClose" class="modal-close" aria-label="Fechar">×</button>
+      <p class="overlay-kicker">FROOGY 2.0</p>
+      <h2 id="modalTitle">COMO JOGAR</h2>
+      <div id="modalContent" class="modal-content"></div>
+    </section>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/game.js') }}" defer></script>
+</body>
+</html>
